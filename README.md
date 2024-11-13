@@ -14,37 +14,24 @@ type to fit the data.
 ### PROGRAM:
 ```
 import pandas as pd
-from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
 
-# Load dataset (replace 'your_data.csv' with the actual filename after uploading the dataset)
+# Load dataset (replace 'your_data.csv' with the actual filename)
 data = pd.read_csv('/content/mulgrave.csv', parse_dates=['Timestamp'], index_col='Timestamp')
 
 # Selecting the "Q" column and dropping NaN values
 data_q = data['Q'].dropna()
 
-# Fit ARMA model (ARMA is a specific case of ARIMA with no differencing, so use ARIMA with order=(p, 0, q))
-p = 1  # Order of the autoregressive part
-q = 1  # Order of the moving average part
-model = ARIMA(data_q, order=(p, 0, q))
-arma_result = model.fit()
-
-# Print the model summary
-print(arma_result.summary())
-
-# Plotting the original data and the fitted values
-plt.figure(figsize=(10, 6))
-plt.plot(data_q, label='Original')
-plt.plot(arma_result.fittedvalues, color='red', label='Fitted')
-plt.title('ARMA Model Fit')
-plt.legend()
+# Plot ACF for the first 35 lags
+plot_acf(data_q, lags=35)
+plt.title('ACF of Q for the first 35 lags')
 plt.show()
-
 ```
                         
 ### OUTPUT:
 
-![download (1)](https://github.com/user-attachments/assets/8b2f5288-50b3-4694-b881-2051ac19cfab)
+![download (2)](https://github.com/user-attachments/assets/12c3c0fb-8617-400e-8f14-edd21ec76e8a)
 
 ### RESULT:
         Thus we have successfully implemented the auto correlation function in python.
