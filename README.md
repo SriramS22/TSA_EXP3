@@ -1,36 +1,32 @@
+### Developed by : S.SRIRAM
+### Reg no : 212222240105
+### Data :
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
-# Develped by : S.SRIRAM
-# Reg no : 212222240105
-## Date:
+
 ### AIM:
 To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
 type to fit the data.
 ### ALGORITHM:
-```
-1.Load the dataset.
-2.Calculate the mean and variance of FinalGrade.
-3.Normalize the FinalGrade column using the mean and variance.
-4.Pre-allocate an array to store the autocorrelation values.
-5.Calculate the autocorrelation for each lag from 1 to 35.
-6.Plot the autocorrelation values against their corresponding lags
-```
+1. Import the necessary packages
+2. Find the mean, variance and then implement normalization for the data.
+3. Implement the correlation using necessary logic and obtain the results
+4. Calculate autocorrelation for different lags (1 to 35).
+5. Plot the autocorrelation values for each lag in graph.
 ### PROGRAM:
-
-
 ```
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the airline complaints dataset
-df = pd.read_csv('/content/student_performance.csv')
+df = pd.read_csv('/content/baggagecomplaints.csv')
 
 # Calculate the mean and variance
-mean_X = np.mean(df['FinalGrade'])
-var_X = np.var(df['FinalGrade'])
+mean_X = np.mean(df['Enplaned'])
+var_X = np.var(df['Enplaned'])
 
 # Normalize the data
-X_normalized = (df['FinalGrade'] - mean_X) / np.sqrt(var_X)
+X_normalized = (df['Enplaned'] - mean_X) / np.sqrt(var_X)
 
 # Pre-allocate autocorrelation table
 acf_table = np.zeros((35, 1))
@@ -44,14 +40,12 @@ for k in range(1, 36):
 plt.plot(acf_table)
 plt.xlabel('Lag')
 plt.ylabel('Autocorrelation')
-plt.title('ACF of Student FinalGrade (First 35 Lags)')
+plt.title('ACF of Airline Complaints (First 35 Lags)')
 plt.show()
 ```
 ### OUTPUT:
-![download](https://github.com/user-attachments/assets/10366aef-158c-4f94-86ee-52c2a21d6d8e)
 
-
-
+![Screenshot 2024-09-11 092814](https://github.com/user-attachments/assets/7ef36b7d-2740-49f4-a713-bbe5c28b0c64)
 
 ### RESULT:
-        the program have successfully implemented the auto correlation function in python.
+Thus the program was successfully created to the auto correlation function for airline complaints dataset.
