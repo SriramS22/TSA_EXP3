@@ -1,37 +1,57 @@
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
-### Date : 12.11.2024 
-### Name : Sriram S
-### Reg No : 212222240105
+# Develped by : S.SRIRAM
+# Reg no : 212222240105
+## Date:
 ### AIM:
 To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
 type to fit the data.
 ### ALGORITHM:
-1. Import the necessary packages
-2. Find the mean, variance and then implement normalization for the data.
-3. Implement the correlation using necessary logic and obtain the results
-4. Store the results in an array
-5. Represent the result in graphical representation as given below.
+```
+1.Load the dataset.
+2.Calculate the mean and variance of FinalGrade.
+3.Normalize the FinalGrade column using the mean and variance.
+4.Pre-allocate an array to store the autocorrelation values.
+5.Calculate the autocorrelation for each lag from 1 to 35.
+6.Plot the autocorrelation values against their corresponding lags
+```
 ### PROGRAM:
+
+
 ```
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.graphics.tsaplots import plot_acf
 
-# Load dataset (replace 'your_data.csv' with the actual filename)
-data = pd.read_csv('/content/mulgrave.csv', parse_dates=['Timestamp'], index_col='Timestamp')
+# Load the airline complaints dataset
+df = pd.read_csv('/content/student_performance.csv')
 
-# Selecting the "Q" column and dropping NaN values
-data_q = data['Q'].dropna()
+# Calculate the mean and variance
+mean_X = np.mean(df['FinalGrade'])
+var_X = np.var(df['FinalGrade'])
 
-# Plot ACF for the first 35 lags
-plot_acf(data_q, lags=35)
-plt.title('ACF of Q for the first 35 lags')
+# Normalize the data
+X_normalized = (df['FinalGrade'] - mean_X) / np.sqrt(var_X)
+
+# Pre-allocate autocorrelation table
+acf_table = np.zeros((35, 1))
+
+# Calculate autocorrelation for each lag
+for k in range(1, 36):
+    autocorrelation_k = np.sum(X_normalized[:-k] * X_normalized[k:]) / (len(X_normalized) - k)
+    acf_table[k-1] = autocorrelation_k
+
+# Display the ACF graph
+plt.plot(acf_table)
+plt.xlabel('Lag')
+plt.ylabel('Autocorrelation')
+plt.title('ACF of Student FinalGrade (First 35 Lags)')
 plt.show()
 ```
-                        
 ### OUTPUT:
+![download](https://github.com/user-attachments/assets/10366aef-158c-4f94-86ee-52c2a21d6d8e)
 
-![download (2)](https://github.com/user-attachments/assets/12c3c0fb-8617-400e-8f14-edd21ec76e8a)
+
+
 
 ### RESULT:
-        Thus we have successfully implemented the auto correlation function in python.
+        the program have successfully implemented the auto correlation function in python.
